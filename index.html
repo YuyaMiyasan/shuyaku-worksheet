@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>自分の人生は、自分が主役。実践ワークシート</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: sticky ink-blue work selector, one worksheet at a time as numbered steps flowing down a single column */
+:root{
+  --bg:#f3f5f8; --paper:#ffffff; --ink:#18233a; --muted:#5d6880; --line:#d7dde8;
+  --accent:#1f4fa8; --accent-soft:#e4ecfa; --key:#e3a91b; --key-soft:#fdf3d8; --ok:#2e7d5b;
+  --bar:#16213a; --bar-fg:#eef2fa;
+  --f-body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1524; --paper:#172033; --ink:#e7ecf6; --muted:#9aa6bf; --line:#2c3852;
+  --accent:#7ea6f2; --accent-soft:#1f2d4a; --key:#f0bf4a; --key-soft:#3a3120; --ok:#5fc79a;
+  --bar:#0a0f1c; --bar-fg:#e7ecf6; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1524; --paper:#172033; --ink:#e7ecf6; --muted:#9aa6bf; --line:#2c3852;
+  --accent:#7ea6f2; --accent-soft:#1f2d4a; --key:#f0bf4a; --key-soft:#3a3120; --ok:#5fc79a;
+  --bar:#0a0f1c; --bar-fg:#e7ecf6; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.7}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bar)}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bar);color:var(--bar-fg)}
+.top .wrap{display:flex;flex-direction:column;gap:6px;padding-block:10px}
+.top-row{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.brand{font-weight:900;font-size:14px;letter-spacing:.04em}
+.save{font-family:var(--f-mono);font-size:11px;opacity:.8;white-space:nowrap}
+.save.ok::before{content:"● ";color:var(--ok)}
+.save.local::before{content:"● ";color:var(--key)}
+nav.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin:0 -4px;padding:0 4px}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;background:transparent;border:1px solid transparent;color:var(--bar-fg);opacity:.72;border-radius:6px;padding:4px 10px;font:inherit;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:6px}
+.tab:hover{opacity:1}
+.tab[aria-current="true"]{opacity:1;background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.22)}
+.tab .n{font-family:var(--f-mono);font-weight:600}
+.tab .dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.25)}
+.tab .dot.part{background:var(--key)}
+.tab .dot.full{background:var(--ok)}
+.tab:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,label:focus-within{outline:2px solid var(--key);outline-offset:2px}
+main{padding-block:24px 64px}
+.sheet-head{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;color:var(--accent);letter-spacing:.12em}
+h1{font-size:clamp(22px,4.6vw,30px);font-weight:900;line-height:1.35;margin:0;text-wrap:balance}
+.chapter{color:var(--muted);font-size:13px}
+.meta-row{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-top:4px}
+.flow{background:var(--accent-soft);border-radius:10px;padding:12px 16px;font-size:14px;margin-bottom:22px}
+.flow b{color:var(--accent)}
+.q{display:grid;grid-template-columns:36px 1fr;gap:0 14px;position:relative;padding-bottom:22px}
+.q:not(:last-of-type)::before{content:"";position:absolute;left:17px;top:38px;bottom:4px;width:2px;background:var(--line)}
+.qn{width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-family:var(--f-mono);font-weight:600;font-size:13px}
+.q.after .qn{background:var(--key);color:#1a1a1a;font-size:10px}
+.qbody{min-width:0;display:flex;flex-direction:column;gap:10px}
+.qt{font-weight:700;font-size:16px;line-height:1.5;padding-top:5px;text-wrap:balance}
+.qh{font-size:13px;color:var(--muted);margin-top:-6px}
+.grid{display:grid;gap:10px}
+@media (min-width:620px){.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}}
+.field{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.field.hl{border-color:var(--key);background:var(--key-soft)}
+.field>label,.field .lb{font-weight:700;font-size:13px}
+.field .sub{font-weight:400;color:var(--muted);font-size:12px}
+textarea,input[type=text],input[type=number],input[type=date]{width:100%;font:inherit;color:var(--ink);background:transparent;border:0;border-bottom:1px dashed var(--line);padding:4px 0;resize:vertical}
+textarea{min-height:64px;line-height:1.7}
+textarea:focus,input:focus{outline:none;border-bottom-color:var(--accent)}
+textarea::placeholder,input::placeholder{color:var(--muted);opacity:.7}
+.unit{display:flex;align-items:baseline;gap:6px}
+.unit input{flex:1;min-width:0}
+.unit span{color:var(--muted);font-size:13px;white-space:nowrap}
+.inline{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
+.inline .mini{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+.inline .mini input{width:auto;min-width:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:13px;cursor:pointer;background:var(--paper);user-select:none}
+.chip input{accent-color:var(--accent);margin:0}
+.chip:has(input:checked){border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:700}
+.done-chip:has(input:checked){border-color:var(--ok);color:var(--ok);background:transparent}
+.sep{text-align:center;font-family:var(--f-mono);color:var(--muted);font-weight:600;align-self:center}
+.closing{margin-top:8px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:14px;text-align:center}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;justify-content:space-between}
+.btn{font:inherit;font-size:13px;border-radius:8px;padding:8px 14px;cursor:pointer;border:1px solid var(--line);background:var(--paper);color:var(--ink)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--paper);font-weight:700}
+.btn.danger{color:#c0392b}
+.confirm{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:8px 16px;border-radius:8px;font-size:13px;z-index:20}
+/* intro */
+.cover{padding:8px 0 4px}
+.cover .eyebrow{color:var(--key)}
+.cover h1{font-size:clamp(26px,6vw,38px)}
+.cover .lead{color:var(--muted);margin:6px 0 20px}
+.list{display:flex;flex-direction:column;gap:8px}
+.wcard{display:grid;grid-template-columns:auto 1fr auto;gap:4px 14px;align-items:center;text-align:left;width:100%;font:inherit;color:inherit;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer}
+.wcard:hover{border-color:var(--accent)}
+.wcard .num{font-family:var(--f-mono);font-weight:600;color:var(--accent);font-size:18px;grid-row:span 2}
+.wcard .t{font-weight:700;min-width:0}
+.wcard .c{font-size:12px;color:var(--muted);min-width:0}
+.wcard .out{font-size:12px;color:var(--muted);grid-row:span 2;text-align:right;max-width:12em}
+.wcard .prog{font-family:var(--f-mono);font-size:11px}
+.rules{display:grid;gap:10px;margin:24px 0}
+@media (min-width:620px){.rules{grid-template-columns:repeat(3,1fr)}}
+.rule{border-top:3px solid var(--key);padding-top:8px}
+.rule b{display:block;font-size:14px}
+.rule p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+.keynote{background:var(--bar);color:var(--bar-fg);border-radius:12px;padding:16px 18px;font-size:14px}
+.keynote b{color:var(--key);display:block;font-size:16px;margin-bottom:2px}
+.backup{margin-top:24px;border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--paper)}
+.backup b{font-size:14px}.backup p{margin:4px 0 0;font-size:13px;color:var(--muted)}
+label.btn{display:inline-flex;align-items:center}
+#printAll{display:none}
+@media print{
+  :root{--bg:#fff;--paper:#fff;--ink:#000;--muted:#444;--line:#bbb;--accent-soft:#eef2f8;--key-soft:#fff8e6}
+  header.top,.actions,.toast,body::before{display:none!important}
+  main{padding:0}
+  textarea{border:0;resize:none;overflow:visible;field-sizing:content;min-height:2.5em}
+  input::placeholder,textarea::placeholder{color:transparent}
+  .q{break-inside:avoid}
+  body.printing-all main{display:none}
+  body.printing-all #printAll{display:block}
+  #printAll section{break-after:page}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (max-width:480px){.wcard{grid-template-columns:auto 1fr}.wcard .out{grid-column:2;grid-row:auto;text-align:left;max-width:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="top-row">
+      <span class="brand">自分の人生は、自分が主役。</span>
+      <span class="save" id="saveState">読み込み中…</span>
+    </div>
+    <nav class="tabs" id="tabs" aria-label="ワーク選択"></nav>
+  </div>
+</header>
+<main class="wrap" id="main"></main>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+// ---------- ワーク定義 ----------
+const ta = (id, label, ex, opt={}) => ({type:"ta", id, label, ex, ...opt});
+const WORKS = [
+ {key:"w1", num:"01", title:"モヤモヤの正体・分解シート", chapter:"第1章　モヤモヤは、自分の価値観を知らせるサイン", output:"本音と、今週の一歩",
+  flow:"モヤッとした場面 → その奥の<b>願い</b> → <b>変えられないこと／変えられること</b>に分ける → <b>今週の一歩</b>を1つだけ決める。",
+  closing:"書き出したその小さな一歩が、次の扉を開く鍵になります。",
+  qs:[
+   {n:"1", t:"最近モヤッとした具体的な場面は？", h:"いつ・どこで・誰の・どんな言動に引っかかりましたか？",
+    rows:[[ta("scene","場面","火曜日の定例会議で新しいツールの導入を提案したとき、上司に「前例がないから難しい」と理由も聞かれずに却下された")]]},
+   {n:"2", t:"その感情の奥にある「本当はこうなってほしかった」は？", h:"願い・大切にしている価値観",
+    rows:[[ta("wish","願い・価値観","提案のメリットや現場の課題を一度聞いたうえで、どうすれば試せるかを一緒に考えてほしかった。自分の工夫で現場を良くしたい")]]},
+   {n:"3", t:"「自分では変えられないこと」と「自分で変えられること」に分けると？",
+    rows:[[ta("cant","自分では変えられないこと","上司の保守的な考え方、部署全体の承認ルール"), ta("can","自分で変えられる（働きかけられる）こと","自分の担当範囲での小さなデータ検証、他部署の詳しい人に話を聞きに行く")]]},
+   {n:"4", t:"「今週できる小さな一歩」を1つだけ決めるなら？", h:"右側（変えられること）の中から選びましょう",
+    rows:[[ta("step","あなたの今週の一歩","すでにそのツールを使っている他部署の知人に連絡し、導入時の工夫を15分だけ聞いてみる",{hl:true, extra:[{type:"date",id:"stepDate",label:"実行する日（予定）"},{type:"done",id:"stepDone",label:"やった"}]})]]}
+  ]},
+ {key:"w2", num:"02", title:"やってみたいの種・発掘シート", chapter:"第2章　「好き」を仕事の外に置いてみる", output:"上限つきの小さな実験",
+  flow:"感情が動いたことを<b>広く出す</b> → 1つに<b>絞る</b> → 時間と費用の<b>上限つきの実験</b>にする。役に立つかどうかは、試した後で判断すればOK。",
+  closing:"仕事の外に、自分で選んだ小さな活動を一つ置いてみる。",
+  qs:[
+   {n:"1", t:"感情が動いたことを書き出してみましょう",
+    rows:[[ta("past","時間を忘れて夢中になったこと","",{sub:"（過去）"}), ta("recent","気になったこと・目にとまったこと","",{sub:"（最近）"}), ta("envy","誰かを見て「いいな」「うらやましい」と感じたこと","")]]},
+   {n:"2", t:"上の中から一つ選ぶなら、どれを試してみたいですか？",
+    rows:[[{type:"text",id:"seed",label:"選んだ種",hl:true}]]},
+   {n:"3", t:"それを小さな実験にすると、どんな行動になりますか？", h:"時間や費用の上限は、自分に無理のない範囲で",
+    rows:[[ta("action","試す行動","")],[{type:"text",id:"timeLimit",label:"使う時間の上限",unit:"時間 ／ 回",ph:"例：2"},{type:"num",id:"costLimit",label:"使う費用の上限",unit:"円まで",ph:"例：3000"}]]},
+   {n:"4", t:"いつ試しますか？ 終わった後、何を振り返りますか？",
+    rows:[[{type:"date",id:"expDate",label:"実験する日",solo:true}, ta("reflect","振り返りたいこと","")]]}
+  ]},
+ {key:"w3", num:"03", title:"課題から考える仲間とサードプレイス設計シート", chapter:"第3章　コミュニティは、課題を解くための手段になる", output:"2〜3人の小さな場と、最初のGive",
+  flow:"大きなコミュニティは目指さない。<b>課題</b> → <b>仲間（1〜2人）</b> → <b>小さな場</b> → <b>自分のGive</b> の順で、「2〜3人で話す場」を設計する。",
+  closing:"一人の声から始まった小さな場が、挑戦を支える味方になる。",
+  qs:[
+   {n:"1", t:"あなたや周囲の人が「今、ちょっと困っていること・不便なこと」は？",
+    rows:[[ta("issue","見つかった課題","テレワークが増えてから、他部署の人がどんな仕事をしているのか分からず、ちょっとした相談がしづらい")]]},
+   {n:"2", t:"その課題に共感してくれそうな人、一緒に考えてみたい人は？", h:"まずは1〜2人でOK",
+    rows:[[{type:"pair",label:"最初に声をかけてみたい相手",ids:["partner1","partner2"],phs:["①","②"]}, ta("ride","または、すでに社内外で動いていて「乗っかってみたい」人の活動","")]]},
+   {n:"3", t:"最初の一歩として、どんな「小さな場」をつくりますか？", h:"「15分の壁打ち」「ランチ雑談」など、軽い相談ベースで",
+    rows:[[{type:"place",label:"場の形式とテーマ"}, ta("firstMsg","相手への最初の声かけ","",{sub:"チャットや会話の一言",ph:"「"})]]},
+   {n:"4", t:"その場で、あなたが最初に差し出せる「小さなGive」は？",
+    rows:[[ta("give","あなたの小さなGive","日程調整とオンライン会議のURL発行を引き受ける／最近見つけた便利な社内ツールの使い方をシェアする",{hl:true})]]}
+  ]},
+ {key:"w4", num:"04", title:"完璧を待たない小さな実験企画シート", chapter:"第4章　人が動き出す環境をつくる", output:"確かめたいことが明確なMVP",
+  flow:"完成形を目指さず、<b>「何を確かめたいのか」</b>を決めるところから。小さく試し、学びをもとに<b>続ける／変える／やめる</b>を決める。",
+  closing:"完璧を待たず、小さく試す。その繰り返しがアイデアを現実に近づける。",
+  qs:[
+   {n:"1", t:"試してみたいアイデアと、それで解決したい課題は？",
+    rows:[[ta("issue","解決したい課題","チーム内の情報共有が属人化している"), ta("idea","試したいアイデア","週に1回、15分だけノウハウを共有する場")]], arrow:true},
+   {n:"2", t:"いきなり完成形を目指さず、まずは何を試しますか？", h:"最小の試作品（MVP）",
+    rows:[[ta("mvp","最初に試すこと","資料はつくらず、関心のある同僚2人に声をかけ、オンラインで1回だけ情報交換してみる",{hl:true})]]},
+   {n:"3", t:"この実験にかける時間と費用の上限を決めましょう",
+    rows:[[{type:"num",id:"hours",label:"使う時間の上限",unit:"時間",ph:"例：1"},{type:"num",id:"cost",label:"使う費用の上限",unit:"円まで",ph:"例：0"}]]},
+   {n:"4", t:"誰に試してもらい、何が分かったら次の判断に役立ちますか？",
+    rows:[[{type:"text",id:"partner",label:"協力してほしい相手",extra:[{type:"date",id:"expDate",label:"実験を実施する日"}]}, ta("verify","確かめたい反応や事実","「〜という反応があれば続ける」の形で書くと判断しやすい")]]},
+   {n:"後", after:true, t:"実験後：結果と、次の判断",
+    rows:[[ta("learned","分かったこと","")],[{type:"radio",id:"decision",label:"次の判断",opts:["続ける","変える","やめる"]}]]}
+  ]},
+ {key:"w5", num:"05", title:"職場に自分の企画をひとつ足すシート", chapter:"第5章　経験をつなぎ、職場に自分の企画を足す", output:"強みを使った企画と、最初の相談",
+  flow:"職場の<b>小さな不便</b> × あなたの<b>経験・強み</b> ＝ <b>小さな企画</b>。必要な相談・承認も含めて、試せる範囲を決める。",
+  closing:"自分の経験をつなぎ、今の職場に小さな企画を一つ足してみる。",
+  qs:[
+   {n:"1・2", t:"職場の「小さな不便・非効率」は？　×　これまで培ってきた経験や強みは？",
+    rows:[[ta("pain","見つけた小さな不便","他部署への依頼方法が分かりにくく、確認のやりとりに時間がかかっている"), ta("strength","あなたの経験・強み","業務フローを図にして整理すること、他部署の人の話を丁寧に聞くこと")]], times:true},
+   {n:"3", t:"その経験を使って、最小限の労力で何を試せそうですか？",
+    rows:[[ta("plan","あなたの小さな企画","依頼に必要な項目をまとめたチェックリストの案をつくり、関係者に意見を聞く",{hl:true})],
+          [{type:"multi",id:"approval",label:"試すために必要な相談・承認",opts:["不要（自分の裁量で試せる）","上司への相談","関係部署への確認","その他"],other:"approvalOther"}]]},
+   {n:"4", t:"最初に誰に相談しますか？", h:"あなたの「師匠」や、課題についてよく知っている人",
+    rows:[[{type:"text",id:"mentor",label:"最初に相談する相手"}, ta("opener","相談の切り出し方","「この手戻りを減らしたくて、チェックリストの案を作りました。10分だけ意見をいただけませんか？」")]]}
+  ]},
+ {key:"w6", num:"06", title:"主役であり続けるための30日間行動計画シート", chapter:"第6章　失敗から学び、次の一歩を選ぶ", output:"30日間の実験と振り返り",
+  flow:"ワーク①〜⑤で見つけた「やってみたいこと」から<b>一つ選び</b>、30日間を一つの実験期間にする。つまずいたときの<b>縮小ルール</b>と<b>支え</b>も先に決めておく。",
+  closing:"何を試すかを自分で決め、結果を見て、次の一歩を選び直す。",
+  timeline:true,
+  qs:[
+   {n:"1", t:"30日後、どんなことが分かっていたらうれしいですか？", h:"大きな成果ではなく、試した結果として確かめたいこと",
+    rows:[[ta("theme","30日間の実験テーマ","",{hl:true, extraTop:{type:"multi",id:"base",label:"元にしたワーク",opts:["①","②","③","④","⑤"]}}), ta("want","30日後に分かっていたいこと","")]]},
+   {n:"2", t:"最初の一歩と実行日を決めましょう",
+    rows:[[ta("first","最初にすること",""), {type:"date",id:"firstDate",label:"実行する日",solo:true}, ta("consult","必要な相談・確認","")]], g3:true},
+   {n:"3", t:"途中で起きそうなつまずきと、対応を考えましょう",
+    rows:[[ta("obstacle","起こりそうなつまずき",""), ta("backup","バックアッププラン",""), ta("shrink","縮小ルール","例：週3回→週1回／30分→5分")]], g3:true},
+   {n:"4", t:"困ったときの支えを決めましょう",
+    rows:[[{type:"text",id:"supporter",label:"相談したい相手"}, ta("how","どのように相談するか","")]]},
+   {n:"5", t:"30日後の振り返り日を決めましょう",
+    rows:[[{type:"date",id:"reviewDate",label:"振り返る日",solo:true}],[ta("did","できたこと",""), ta("learned","分かったこと","")],[ta("fun","楽しかったこと",""), ta("next","次に変えたいこと","")]]}
+  ]}
+];
+const FIELD_IDS = {};
+WORKS.forEach(w=>{const ids=["date"]; const walk=f=>{
+  if(f.id) ids.push(f.id); if(f.ids) ids.push(...f.ids); if(f.other) ids.push(f.other);
+  if(f.type==="place") ids.push("fmt","minutes","people","placeTheme");
+  if(f.type==="timeline") {}
+  (f.extra||[]).forEach(walk); if(f.extraTop) walk(f.extraTop);};
+  w.qs.forEach(q=>q.rows.flat().forEach(walk)); if(w.timeline) ids.push("day1","day30"); FIELD_IDS[w.key]=ids;});
+
+// ---------- 状態と保存 ----------
+let state = {};
+const LS_KEY = "shuyaku-worksheet-v1";
+try{ state = JSON.parse(localStorage.getItem(LS_KEY)||"{}")||{}; }catch(e){ state={}; }
+const $ = s=>document.querySelector(s);
+const saveEl = $("#saveState");
+function setSave(text, cls){ saveEl.textContent=text; saveEl.className="save "+(cls||""); }
+setSave(Object.keys(state).length?"このブラウザに保存済み":"このブラウザに自動保存", "ok");
+
+function val(w,id){ return (state[w]||{})[id]; }
+function setVal(w,id,v){ (state[w] ||= {})[id]=v; state._updated = Date.now(); scheduleSave(); updateProgress(); }
+function scheduleSave(){
+  try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); setSave("このブラウザに保存済み","ok"); }
+  catch(e){ setSave("保存できません（プライベートモード等）","local"); }
+}
+function flush(){}
+
+// ---------- バックアップ（ファイル書き出し・読み込み） ----------
+function exportJSON(){
+  const blob = new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
+  const a = document.createElement("a"); const d = new Date();
+  a.href = URL.createObjectURL(blob);
+  a.download = `worksheet_${d.getFullYear()}${String(d.getMonth()+1).padStart(2,"0")}${String(d.getDate()).padStart(2,"0")}.json`;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  toast("バックアップファイルを保存しました");
+}
+function importJSON(file){
+  const r = new FileReader();
+  r.onload = ()=>{ try{ const d = JSON.parse(r.result); if(typeof d!=="object"||!d) throw 0;
+      state = d; state._updated = Date.now(); scheduleSave(); render(); toast("読み込みました"); }
+    catch(e){ toast("読み込めませんでした。このアプリで保存したファイルを選んでください"); } };
+  r.readAsText(file);
+}
+function printSheet(){ window.print(); }
+
+// ---------- 描画 ----------
+function esc(s){ return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function fid(w,id){ return w+"-"+id; }
+function fieldHTML(w,f){
+  const sub = f.sub?` <span class="sub">${esc(f.sub)}</span>`:"";
+  const cls = "field"+(f.hl?" hl":"");
+  const extras = (f.extra||[]).map(e=>extraHTML(w,e)).join("");
+  const top = f.extraTop?extraHTML(w,f.extraTop):"";
+  switch(f.type){
+    case "ta": return `<div class="${cls}"><label for="${fid(w,f.id)}">${esc(f.label)}${sub}</label>${top}<textarea id="${fid(w,f.id)}" data-w="${w}" data-k="${f.id}" rows="3" placeholder="${esc(f.ph || (f.ex?"記入例｜"+f.ex:""))}"></textarea>${extras?`<div class="inline">${extras}</div>`:""}</div>`;
+    case "text": return `<div class="${cls}"><label for="${fid(w,f.id)}">${esc(f.label)}${sub}</label>${unitWrap(`<input type="text" id="${fid(w,f.id)}" data-w="${w}" data-k="${f.id}" placeholder="${esc(f.ph||"")}">`,f.unit)}${extras?`<div class="inline">${extras}</div>`:""}</div>`;
+    case "num": return `<div class="${cls}"><label for="${fid(w,f.id)}">${esc(f.label)}</label>${unitWrap(`<input type="number" inputmode="decimal" min="0" id="${fid(w,f.id)}" data-w="${w}" data-k="${f.id}" placeholder="${esc(f.ph||"")}">`,f.unit)}</div>`;
+    case "date": return `<div class="${cls}"><label for="${fid(w,f.id)}">${esc(f.label)}</label><input type="date" id="${fid(w,f.id)}" data-w="${w}" data-k="${f.id}"></div>`;
+    case "pair": return `<div class="${cls}"><span class="lb">${esc(f.label)}</span>${f.ids.map((id,i)=>`<input type="text" id="${fid(w,id)}" aria-label="${esc(f.label+" "+f.phs[i])}" data-w="${w}" data-k="${id}" placeholder="${f.phs[i]}">`).join("")}</div>`;
+    case "place": return `<div class="${cls}"><span class="lb">${esc(f.label)}</span>
+      ${chipsHTML(w,"fmt",["壁打ち","ランチ","オンライン"],"checkbox")}
+      <div class="inline"><label class="mini">時間<input type="number" min="0" id="${fid(w,"minutes")}" data-w="${w}" data-k="minutes" style="width:4.5em">分</label>
+      <label class="mini">人数<input type="number" min="0" id="${fid(w,"people")}" data-w="${w}" data-k="people" style="width:3.5em">人</label></div>
+      <label for="${fid(w,"placeTheme")}" class="sub">テーマ</label><input type="text" id="${fid(w,"placeTheme")}" data-w="${w}" data-k="placeTheme"></div>`;
+    case "multi": return `<div class="${cls}"><span class="lb">${esc(f.label)}</span>${chipsHTML(w,f.id,f.opts,"checkbox")}${f.other?`<input type="text" id="${fid(w,f.other)}" data-w="${w}" data-k="${f.other}" placeholder="その他の内容" aria-label="その他の内容">`:""}</div>`;
+    case "radio": return `<div class="${cls}"><span class="lb">${esc(f.label)}</span>${chipsHTML(w,f.id,f.opts,"radio")}</div>`;
+  }
+}
+function extraHTML(w,e){
+  if(e.type==="date") return `<label class="mini">${esc(e.label)}<input type="date" id="${fid(w,e.id)}" data-w="${w}" data-k="${e.id}"></label>`;
+  if(e.type==="done") return `<label class="chip done-chip"><input type="checkbox" id="${fid(w,e.id)}" data-w="${w}" data-k="${e.id}" data-bool="1">${esc(e.label)}</label>`;
+  if(e.type==="multi") return `<div><span class="sub">${esc(e.label)}</span> ${chipsHTML(w,e.id,e.opts,"checkbox")}</div>`;
+  return "";
+}
+function chipsHTML(w,id,opts,type){
+  return `<div class="chips" role="group">${opts.map((o,i)=>`<label class="chip"><input type="${type}" name="${fid(w,id)}" id="${fid(w,id)}-${i}" data-w="${w}" data-k="${id}" data-multi="${type}" value="${esc(o)}">${esc(o)}</label>`).join("")}</div>`;
+}
+function unitWrap(input,unit){ return unit?`<div class="unit">${input}<span>${esc(unit)}</span></div>`:input; }
+
+function sheetHTML(w){
+  const rowsHTML = q => q.rows.map((r,ri)=>{
+    const n = r.length; let cls = n===3||q.g3?"g3":n===2?"g2":"";
+    let parts = r.map(f=>fieldHTML(w.key,f));
+    return `<div class="grid ${cls}">${parts.join("")}</div>`;
+  }).join("");
+  const tl = w.timeline?`<div class="field" style="flex-direction:row;flex-wrap:wrap;gap:8px 18px;align-items:center;margin-bottom:20px">
+     <label class="mini" style="font-weight:700">DAY 1<input type="date" id="${fid(w.key,"day1")}" data-w="${w.key}" data-k="day1" style="width:auto;margin-left:6px"></label>
+     <span class="sub" style="flex:1;min-width:8em;text-align:center">━━ つまずき（Q3・Q4で備える）━━</span>
+     <label class="mini" style="font-weight:700">DAY 30<input type="date" id="${fid(w.key,"day30")}" data-w="${w.key}" data-k="day30" style="width:auto;margin-left:6px"></label></div>`:"";
+  return `<section aria-labelledby="h-${w.key}">
+    <div class="sheet-head">
+      <span class="eyebrow">WORK ${w.num}　·　OUTPUT：${esc(w.output)}</span>
+      <h1 id="h-${w.key}">${esc(w.title)}</h1>
+      <span class="chapter">${esc(w.chapter)}</span>
+      <div class="meta-row"><label class="mini" style="display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)">記入日<input type="date" id="${fid(w.key,"date")}" data-w="${w.key}" data-k="date" style="width:auto"></label></div>
+    </div>
+    <div class="flow">${w.flow}</div>
+    ${tl}
+    ${w.qs.map(q=>`<div class="q${q.after?" after":""}"><div class="qn" aria-hidden="true">${q.after?"実験後":q.n}</div><div class="qbody">
+      <div class="qt">${esc(q.t)}</div>${q.h?`<div class="qh">${esc(q.h)}</div>`:""}${rowsHTML(q)}</div></div>`).join("")}
+    <p class="closing">${esc(w.closing)}</p>
+    <div class="actions">
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary" type="button" data-copy="${w.key}">このワークをテキストでコピー</button>
+      <button class="btn" type="button" data-print="1">印刷・PDF保存</button>
+      ${WORKS.indexOf(w)<WORKS.length-1?`<button class="btn" type="button" data-go="${WORKS[WORKS.indexOf(w)+1].key}">次のワークへ →</button>`:""}</div>
+      <div id="clear-${w.key}"><button class="btn danger" type="button" data-clear="${w.key}">このワークを消去</button></div>
+    </div>
+  </section>`;
+}
+
+function introHTML(){
+  return `<section class="cover">
+    <span class="eyebrow">PRACTICE WORKSHEETS</span>
+    <h1>自分の人生は、自分が主役。<br>実践ワークシート</h1>
+    <p class="lead">Thinker（考える人）から Doer（行動する人）へ ── 6つの小さな実験</p>
+    <div class="list">${WORKS.map(w=>`<button type="button" class="wcard" data-go="${w.key}">
+      <span class="num">${w.num}</span><span class="t">${esc(w.title)}</span>
+      <span class="out"><span class="prog" id="prog-${w.key}"></span><br>${esc(w.output)}</span>
+      <span class="c">${esc(w.chapter)}</span></button>`).join("")}</div>
+    <div class="rules">
+      <div class="rule"><b>1. きれいに書かなくていい</b><p>本音をそのまま言葉にすることが、主役への第一歩です。</p></div>
+      <div class="rule"><b>2. 必ず「日付」を入れる</b><p>実行日が決まった一歩だけが、行動に変わります。</p></div>
+      <div class="rule"><b>3. 正解・不正解はない</b><p>大切なのは「今の自分が無理なく試せる一歩か」どうかです。</p></div>
+    </div>
+    <div class="keynote"><b>鍵は、最初から開いています。</b>どのワークから始めても構いません。うまくいってもいかなくても、その結果が次の選択の材料になります。</div>
+    <div class="backup">
+      <b>データの保存について</b>
+      <p>入力内容はこのブラウザの中だけに自動保存され、どこにも送信されません。別の端末やブラウザで続けたいとき、念のため残しておきたいときは、バックアップファイルを書き出してください。</p>
+      <div class="actions" style="margin-top:8px;justify-content:flex-start">
+        <button class="btn" type="button" data-copy="all">すべてをテキストでコピー</button>
+        <button class="btn" type="button" data-print="1">すべて印刷・PDF保存</button>
+        <button class="btn" type="button" data-export="1">バックアップを書き出す</button>
+        <label class="btn" for="importFile">バックアップを読み込む</label>
+        <input type="file" id="importFile" accept="application/json,.json" hidden>
+      </div>
+    </div>
+  </section>`;
+}
+
+let current = "intro";
+function render(){
+  const tabs = [{key:"intro",label:"はじめに"},...WORKS.map(w=>({key:w.key,label:w.title,num:w.num}))];
+  $("#tabs").innerHTML = tabs.map(t=>`<button class="tab" type="button" data-go="${t.key}" aria-current="${t.key===current}" title="${esc(t.label)}">${t.num?`<span class="n">${t.num}</span><span class="dot" id="dot-${t.key}"></span>`:esc(t.label)}</button>`).join("");
+  const w = WORKS.find(x=>x.key===current);
+  $("#main").innerHTML = w?sheetHTML(w):introHTML();
+  fill(); updateProgress();
+}
+function fill(){
+  document.querySelectorAll("#main [data-k]").forEach(el=>{
+    const v = val(el.dataset.w, el.dataset.k);
+    if(el.dataset.multi==="checkbox") el.checked = Array.isArray(v) && v.includes(el.value);
+    else if(el.dataset.multi==="radio") el.checked = v===el.value;
+    else if(el.dataset.bool) el.checked = !!v;
+    else el.value = v ?? "";
+  });
+}
+function filled(v){ return Array.isArray(v)?v.length>0:(v!==undefined&&v!==null&&v!==""&&v!==false); }
+function updateProgress(){
+  WORKS.forEach(w=>{
+    const ids = FIELD_IDS[w.key]; const c = ids.filter(id=>filled(val(w.key,id))).length;
+    const dot = document.getElementById("dot-"+w.key);
+    if(dot) dot.className = "dot"+(c===0?"":c>=ids.length*0.7?" full":" part");
+    const p = document.getElementById("prog-"+w.key);
+    if(p) p.textContent = c? `${c} / ${ids.length} 項目` : "未記入";
+  });
+}
+
+// ---------- イベント ----------
+document.addEventListener("input", e=>{
+  const el = e.target; if(!el.dataset?.k) return;
+  const {w,k} = el.dataset;
+  if(el.dataset.multi==="checkbox"){ const arr=[...document.querySelectorAll(`[name="${fid(w,k)}"]:checked`)].map(x=>x.value); setVal(w,k,arr); }
+  else if(el.dataset.multi==="radio"){ setVal(w,k,el.value); }
+  else if(el.dataset.bool){ setVal(w,k,el.checked); }
+  else setVal(w,k,el.value);
+});
+document.addEventListener("change", e=>{ if(e.target.type==="checkbox"||e.target.type==="radio") e.target.dispatchEvent(new Event("input",{bubbles:true})); });
+document.addEventListener("click", e=>{
+  const go = e.target.closest("[data-go]");
+  if(go){ const k=go.dataset.go; try{ history.replaceState(null,"",k==="intro"?location.pathname+location.search:"#"+k); }catch(err){} show(k); return; }
+  const cp = e.target.closest("[data-copy]");
+  if(cp){ copyText(cp.dataset.copy==="all"?WORKS.map(textOf).join("\n\n"):textOf(WORKS.find(w=>w.key===cp.dataset.copy))); return; }
+  if(e.target.closest("[data-print]")){ if(e.target.closest(".cover")) printAll(); else window.print(); return; }
+  if(e.target.closest("[data-export]")){ exportJSON(); return; }
+  const cl = e.target.closest("[data-clear]");
+  if(cl){ const k=cl.dataset.clear; $("#clear-"+k).innerHTML=`<div class="confirm">入力内容を消去しますか？<button class="btn danger" type="button" data-clear-yes="${k}">消去する</button><button class="btn" type="button" data-clear-no="${k}">やめる</button></div>`; return; }
+  const yes = e.target.closest("[data-clear-yes]");
+  if(yes){ delete state[yes.dataset.clearYes]; state._updated=Date.now(); scheduleSave(); render(); toast("消去しました"); return; }
+  const no = e.target.closest("[data-clear-no]");
+  if(no){ render(); }
+});
+function route(){ show(location.hash.replace("#","")); }
+function show(h){
+  flush();
+  current = WORKS.some(w=>w.key===h)?h:"intro";
+  render(); window.scrollTo(0,0);
+  document.querySelector('.tab[aria-current="true"]')?.scrollIntoView({inline:"center",block:"nearest"});
+}
+window.addEventListener("hashchange", route);
+document.addEventListener("change", e=>{ if(e.target.id==="importFile" && e.target.files[0]){ importJSON(e.target.files[0]); e.target.value=""; } });
+function printAll(){
+  const box=document.createElement("div"); box.id="printAll"; box.className="wrap";
+  box.innerHTML = WORKS.map(sheetHTML).join("");
+  document.body.appendChild(box);
+  box.querySelectorAll("[id]").forEach(el=>{ if(el.dataset.k) el.removeAttribute("id"); });
+  box.querySelectorAll("[data-k]").forEach(el=>{
+    const v = val(el.dataset.w, el.dataset.k);
+    if(el.dataset.multi==="checkbox") el.checked = Array.isArray(v) && v.includes(el.value);
+    else if(el.dataset.multi==="radio") el.checked = v===el.value;
+    else if(el.dataset.bool) el.checked = !!v;
+    else { el.value = v ?? ""; if(el.tagName==="TEXTAREA") el.textContent = v ?? ""; }
+  });
+  document.body.classList.add("printing-all");
+  const done=()=>{ box.remove(); document.body.classList.remove("printing-all"); window.removeEventListener("afterprint",done); };
+  window.addEventListener("afterprint",done); window.print(); setTimeout(done, 1500);
+}
+window.addEventListener("pagehide", flush);
+document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState==="hidden") flush(); });
+
+// ---------- テキスト書き出し ----------
+function fmt(v){ if(Array.isArray(v)) return v.join("、"); if(v===true) return "✓"; if(v===false) return ""; return v??""; }
+function textOf(w){
+  const s = state[w.key]||{}; const L = [`■ WORK ${w.num}　${w.title}`, `記入日：${fmt(s.date)}`];
+  if(w.timeline) L.push(`DAY 1：${fmt(s.day1)}　→　DAY 30：${fmt(s.day30)}`);
+  const line=(label,v)=>L.push(`・${label}：${fmt(v)}`);
+  const walk=f=>{
+    if(f.extraTop) walk(f.extraTop);
+    if(f.type==="pair") line(f.label, f.ids.map(i=>s[i]).filter(Boolean).join(" / "));
+    else if(f.type==="place"){ line("場の形式", s.fmt); line("時間（分）", s.minutes); line("人数", s.people); line("テーマ", s.placeTheme); }
+    else if(f.id){ line(f.label, s[f.id]); if(f.other && s[f.other]) line("その他", s[f.other]); }
+    (f.extra||[]).forEach(walk);
+  };
+  w.qs.forEach(q=>{ L.push("", `【${q.after?"実験後":"Q"+q.n}】${q.t}`); q.rows.flat().forEach(walk); });
+  return L.join("\n");
+}
+async function copyText(t){
+  try{ await navigator.clipboard.writeText(t); toast("コピーしました"); }
+  catch(e){
+    const ta=document.createElement("textarea"); ta.value=t; ta.style.cssText="position:fixed;inset:20% 16px auto;height:50vh;z-index:30;background:var(--paper);color:var(--ink);border:1px solid var(--line);padding:12px";
+    document.body.appendChild(ta); ta.select(); toast("選択されたテキストをコピーしてください");
+    ta.addEventListener("blur",()=>ta.remove());
+  }
+}
+let tt; function toast(m){ const el=$("#toast"); el.textContent=m; el.hidden=false; clearTimeout(tt); tt=setTimeout(()=>el.hidden=true,2200); }
+
+route();
+</script>
+
+</body>
+</html>
